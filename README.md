@@ -21,9 +21,8 @@ For example, it detects tone differences between work emails and client follow-u
 
 IMPLEMENTATION PLAN & TECH STACK :
 Frontend: React.js (user dashboard).
-Backend: Node.js (email processing).
+Backend: flask (email processing).
 Database: MongoDB (email logs).
-AI Model: Python (TensorFlow).
 Integration: Gmail API(Google Cloud Console), Outlook API.
 ✅ DEVELOPMENT PHASES:
 
