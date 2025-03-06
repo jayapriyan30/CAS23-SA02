@@ -31,6 +31,13 @@ AI Model Training – Learn the user’s email style.
 Frontend Development – Build a dashboard.
 Testing & Deployment – Optimize and host securely.
 
+Email HANDLING & INTEGRATION : 📧
+✅ imaplib – Fetches emails using IMAP protocol.
+✅ smtplib – Sends automated email responses.
+✅ email – Parses email content (subject, body, attachments).
+✅ google-auth & google-auth-oauthlib – Access Gmail API securely.
+✅ MicrosoftGraph – If integrating Outlook emails.
+
 RISKS AND SOLUTIONS :
 
 1️⃣ Privacy Concerns – AI accessing emails.
