@@ -10,13 +10,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
 def authenticate_gmail():
-    """Authenticate user with Gmail API using OAuth 2.0."""
     flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
     creds = flow.run_local_server(port=0)
     return creds
 
 def fetch_primary_emails():
-    """Fetch primary emails from Gmail inbox."""
     creds = authenticate_gmail()
     service = build("gmail", "v1", credentials=creds)
 
@@ -51,7 +49,6 @@ def fetch_primary_emails():
     return email_list
 
 def send_email(recipient, subject, body):
-    """Send a manually typed email using SMTP."""
     sender_email = "your-email@gmail.com"
     sender_password = "your-app-password"
 

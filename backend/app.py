@@ -3,16 +3,14 @@ from flask_cors import CORS
 from email_handler import fetch_primary_emails, send_email
 
 app = Flask(__name__)
-CORS(app)  # Allow frontend to communicate with backend
+CORS(app) 
 
 @app.route("/api/emails", methods=["GET"])
 def get_emails():
-    """Fetch primary emails from Gmail."""
     return jsonify(fetch_primary_emails())
 
 @app.route("/api/send-email", methods=["POST"])
 def send_email_api():
-    """Allows user to manually input response & send via Gmail SMTP."""
     data = request.json
     recipient = data["recipient"]
     subject = data["subject"]
