@@ -7,32 +7,24 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-# Define the required Gmail API scope
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
 def authenticate_gmail():
-    """
-    Authenticate the user with Gmail API using OAuth 2.0.
-    Returns an authenticated service object.
-    """
+    """Authenticate user with Gmail API using OAuth 2.0."""
     flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
     creds = flow.run_local_server(port=0)
     return creds
 
 def fetch_primary_emails():
-    """
-    Fetch primary category emails from Gmail inbox.
-    Returns a list of email dictionaries (id, sender, subject, body).
-    """
+    """Fetch primary emails from Gmail inbox."""
     creds = authenticate_gmail()
     service = build("gmail", "v1", credentials=creds)
 
-    # Fetch only primary emails
     results = service.users().messages().list(userId="me", labelIds=["INBOX"], q="category:primary").execute()
     messages = results.get("messages", [])
 
     email_list = []
-    for msg in messages[:5]:  # Limit to 5 emails
+    for msg in messages[:5]:  
         msg_data = service.users().messages().get(userId="me", id=msg["id"]).execute()
         payload = msg_data["payload"]
         headers = payload.get("headers", [])
@@ -40,7 +32,6 @@ def fetch_primary_emails():
         subject = next((h["value"] for h in headers if h["name"] == "Subject"), "No Subject")
         sender = next((h["value"] for h in headers if h["name"] == "From"), "Unknown Sender")
 
-        # Extract email body (handle different formats)
         body = "No content"
         if "parts" in payload:
             for part in payload["parts"]:
@@ -59,13 +50,10 @@ def fetch_primary_emails():
 
     return email_list
 
-
 def send_email(recipient, subject, body):
-    """
-    Send an email using SMTP (Gmail).
-    """
+    """Send a manually typed email using SMTP."""
     sender_email = "your-email@gmail.com"
-    sender_password = "your-app-password"  # Generate App Password from Google
+    sender_password = "your-app-password"
 
     msg = MIMEMultipart()
     msg["From"] = sender_email
@@ -81,3 +69,5 @@ def send_email(recipient, subject, body):
         print(f"Email sent to {recipient}")
     except Exception as e:
         print(f"Failed to send email: {e}")
+
+       
